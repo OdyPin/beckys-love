@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f1e9">
-  <meta name="description" content="Becky's Love — a garden of stories, stitched with love.">
-  <title>Becky’s Love — A story in bloom</title>
+  <meta name="description" content="Becky’s Love — a fan-made space for stories, notes and lovely little discoveries.">
+  <title>Becky’s Love — a little world of its own</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italianno&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
@@ -13,78 +13,88 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="wordmark" href="#top" aria-label="Becky's Love home">Becky’s <em>Love</em></a>
+    <a class="wordmark" href="#top" aria-label="Becky’s Love home">Becky’s <em>Love</em></a>
     <nav aria-label="Main navigation">
-      <a href="#story">The story</a>
-      <a href="#exhibition">Exhibition</a>
-      <a class="nav-cta" href="#details">Save the date <span>↗</span></a>
+      <a href="#featured">Featured</a>
+      <a href="#fan-messages">Fan Messages</a>
+      <a href="#links">Links</a>
+      <a href="#disclaimers">Disclaimers</a>
     </nav>
+    <a class="top-note" href="#fan-messages">Leave a little note <span>↗</span></a>
   </header>
 
   <main id="top">
-    <section class="hero" aria-label="Becky's Love introduction">
-      <img class="hero-image" src="assets/reading-room.jpg" alt="A sunlit vintage reading room with a lace curtain, flowers and an open book">
-      <div class="hero-shade"></div>
-      <div class="hero-copy">
-        <p class="eyebrow light">A little world of her own</p>
-        <h1>Becky’s<br><span>Love</span></h1>
-        <p class="hero-line">Before the journey begins,<br>come see where her stories live.</p>
-        <a class="round-link" href="#story" aria-label="Discover the story">↓</a>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+      <div class="hero-spark spark-one">✳</div><div class="hero-spark spark-two">✿</div>
+      <div class="hero-content">
+        <p class="eyebrow">A little world of its own</p>
+        <h1 id="hero-title">Becky’s<br><em>Love</em></h1>
+        <p class="hero-line">A soft place for stories,<br>memories and everything in bloom.</p>
+        <a class="circle-link" href="#featured" aria-label="Explore featured stories">↓</a>
       </div>
-      <div class="hero-note"><span>01</span><i></i><span>02</span><i></i><span>03</span></div>
-      <p class="hero-caption">A story in bloom · 2026</p>
+      <p class="hero-side">A fan-made collection <span>·</span> Since 2026</p>
+      <div class="hero-bottom"><span>01</span><i></i><span>Made with care</span></div>
     </section>
 
-    <section class="intro section-pad" id="story">
-      <div class="intro-label"><span class="tiny-flower">✳</span> A note from the garden</div>
-      <div class="intro-content">
-        <p class="eyebrow">For every version of her</p>
-        <h2>Some stories are<br>best <em>felt</em> in full bloom.</h2>
-        <p class="body-copy">A soft little place for the moments, memories and dreams that make a story yours. Come wander awhile, and find a little magic waiting among the flowers.</p>
-        <a class="text-link" href="#exhibition">Wander into the story <span>↗</span></a>
-      </div>
-      <div class="intro-flower flower-one">✿</div><div class="intro-flower flower-two">✿</div>
-    </section>
-
-    <section class="garden-feature" aria-label="A moment in the garden">
-      <div class="garden-photo"><img src="assets/garden-dance.png" alt="A dancer in a blush pink dress among flowers in a twilight garden"></div>
-      <div class="garden-copy">
-        <p class="eyebrow">Chapter one · The garden</p>
-        <h2>Let the<br>day <em>dream.</em></h2>
-        <p>Petals in the breeze, a little music in the air, and the feeling that anything might happen next.</p>
-        <span class="handwritten">with love, always</span>
-        <span class="garden-stamp">B<br><small>♡</small></span>
+    <section class="featured section" id="featured">
+      <div class="section-kicker"><span>01</span><i></i> The little spotlight</div>
+      <div class="featured-layout">
+        <div class="featured-copy">
+          <p class="eyebrow">Featured</p>
+          <h2>Stories that<br>stay <em>with us.</em></h2>
+          <p class="body-copy">A changing collection of favorite moments, creative work and fan-made highlights. This is where the next lovely discovery will find its place.</p>
+          <a class="under-link" href="#links">Explore the links <span>↗</span></a>
+        </div>
+        <article class="feature-card">
+          <div class="feature-card-top"><span>In the garden</span><span>♡</span></div>
+          <div class="flower-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div>
+          <p class="feature-script">a story<br>in bloom</p>
+          <div class="feature-card-foot"><span>Featured moment</span><span>01 / 04</span></div>
+        </article>
       </div>
     </section>
 
-    <section class="exhibition section-pad" id="exhibition">
-      <div class="exhibition-heading">
-        <p class="eyebrow">A world waiting to be found</p>
-        <h2>The <em>Runaway</em><br>Exhibition</h2>
-        <p class="body-copy">Step inside a daydream, and follow the story wherever it leads.</p>
+    <section class="messages section" id="fan-messages">
+      <div class="section-kicker"><span>02</span><i></i> Notes from the community</div>
+      <div class="messages-heading">
+        <div><p class="eyebrow">Fan Messages</p><h2>Kind words<br>make a <em>garden.</em></h2></div>
+        <p class="body-copy">A corner for fans to share the moments, performances and little details they love most.</p>
       </div>
-      <figure class="poster-frame"><img src="assets/three-days.jpg" alt="Runaway exhibition campaign image: three days to find my own way; tickets on sale 29 November 2026 at ICONSIAM Hall"></figure>
-      <div class="exhibition-side-note"><span>✳</span><p>For the dreamers,<br>the wanderers,<br>the ones becoming.</p></div>
-    </section>
-
-    <section class="details" id="details">
-      <div class="details-image"><img src="assets/runaway-poster.jpg" alt="Runaway exhibition poster collage with a portrait and ticket announcement"></div>
-      <div class="details-copy">
-        <p class="eyebrow light">Keep this little date</p>
-        <h2>See you<br><em>there?</em></h2>
-        <div class="date-block"><span>29</span><div><b>NOVEMBER</b><small>2026 · ICONSIAM HALL</small></div></div>
-        <p class="details-note">Tickets on sale<br><strong>29 November 2026</strong></p>
-        <a class="pill-link" href="https://www.google.com/search?q=Runaway+Exhibition+ICONSIAM+Hall+29+November+2026" target="_blank" rel="noreferrer">Find exhibition details <span>↗</span></a>
+      <div class="message-board">
+        <div class="message-stamp">with<br>love <b>♡</b></div>
+        <p class="message-empty">Your message<br>could bloom here.</p>
+        <p class="message-caption">The community guestbook is waiting for its first note.</p>
+        <a class="message-link" href="#links">Find the community links <span>↗</span></a>
       </div>
     </section>
 
-    <section class="closing">
-      <span class="closing-flower">✿</span>
-      <p class="eyebrow">Until the next chapter</p>
-      <p class="closing-script">Keep a little love<br>in your pocket.</p>
-      <a class="text-link" href="#top">Back to the beginning ↑</a>
+    <section class="links-section section" id="links">
+      <div class="section-kicker"><span>03</span><i></i> Follow the story
+      </div>
+      <div class="links-layout">
+        <div><p class="eyebrow">Links</p><h2>Take the<br>scenic <em>route.</em></h2><p class="body-copy">A few paths through this little corner of the internet.</p></div>
+        <div class="link-list">
+          <a href="#featured"><span class="link-number">01</span><span><b>Featured</b><small>Favorite moments and highlights</small></span><i>↗</i></a>
+          <a href="#fan-messages"><span class="link-number">02</span><span><b>Fan Messages</b><small>Notes from the community</small></span><i>↗</i></a>
+          <a href="#disclaimers"><span class="link-number">03</span><span><b>Disclaimers</b><small>About this fan-made page</small></span><i>↗</i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="disclaimers section" id="disclaimers">
+      <div class="section-kicker"><span>04</span><i></i> A small, clear note</div>
+      <div class="disclaimer-layout">
+        <div><p class="eyebrow">Disclaimers</p><h2>Made with<br><em>admiration.</em></h2></div>
+        <div class="disclaimer-copy">
+          <p>This is an independent, fan-made page created for appreciation and community. It is not affiliated with, endorsed by, or an official website of Becky, her representatives, or any related organization.</p>
+          <p>Names and marks belong to their respective owners. Please contact the page owner if you have a concern about content or attribution.</p>
+          <span class="disclaimer-heart">♡</span>
+        </div>
+      </div>
     </section>
   </main>
-  <footer><a class="wordmark" href="#top">Becky’s <em>Love</em></a><span>Made with a little garden magic · 2026</span><a href="#top">↑</a></footer>
+
+  <footer><a class="wordmark" href="#top">Becky’s <em>Love</em></a><span>An independent fan-made page · 2026</span><a class="back-top" href="#top" aria-label="Back to top">↑</a></footer>
 </body>
 </html>
