@@ -1,6 +1,6 @@
 # Becky’s Love
 
-A responsive, image-free fan page styled with the warm ivory, blush, garden green and twilight blue tones from the visual references.
+A responsive fan page styled with warm ivory, blush, garden green and twilight blue tones, with an original ethereal garden illustration behind the hero.
 
 ## Page sections
 
