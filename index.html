@@ -83,11 +83,29 @@
         <div><p class="eyebrow">Fan Messages</p><h2>Kind words<br>make a <em>garden.</em></h2></div>
         <p class="body-copy">A corner for fans to share the moments, performances and little details they love most.</p>
       </div>
-      <div class="message-board">
-        <div class="message-stamp">with<br>love <b>♡</b></div>
-        <p class="message-empty">Your message<br>could bloom here.</p>
-        <p class="message-caption">The community guestbook is waiting for its first note.</p>
-        <a class="message-link" href="#links">Find the community links <span>↗</span></a>
+      <div class="community-grid">
+        <form class="message-form" id="fan-message-form">
+          <p class="message-stamp">with<br>love <b>♡</b></p>
+          <h3>Leave a little note</h3>
+          <p class="message-caption">Messages and pictures are reviewed before they can appear here.</p>
+          <label for="fan-name">Your name</label>
+          <input id="fan-name" name="name" maxlength="50" autocomplete="nickname" required placeholder="How should we credit you?">
+          <label for="fan-message">Your message</label>
+          <textarea id="fan-message" name="message" maxlength="700" rows="5" required placeholder="Share a kind thought…"></textarea>
+          <label for="fan-photo">Add a picture <span>(optional · JPEG, PNG or WebP · up to 5 MB)</span></label>
+          <input id="fan-photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp">
+          <label class="consent"><input type="checkbox" name="consent" required><span>I understand my submission stays private unless an admin approves it for the community page.</span></label>
+          <button class="submit-message" type="submit">Send for review <span>♡</span></button>
+          <p class="form-status" id="fan-form-status" role="status" aria-live="polite">Submissions are held for review before publication.</p>
+          <input class="honey-field" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </form>
+        <div class="community-posts-wrap">
+          <div class="community-posts-heading"><span>Community notes</span><span>Approved with care ♡</span></div>
+          <div class="community-posts" id="approved-messages" aria-live="polite">
+            <p class="message-empty">A little garden<br>of kind words.</p>
+            <p class="message-caption">Approved fan messages will bloom here.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -117,8 +135,10 @@
     </section>
   </main>
 
-  <footer><a class="wordmark" href="#top">Becky’s <em>Love</em></a><span>An independent fan-made page · 2026</span><a class="back-top" href="#top" aria-label="Back to top">↑</a></footer>
+  <footer><a class="wordmark" href="#top">Becky’s <em>Love</em></a><span>An independent fan-made page · 2026</span><a class="admin-link" href="admin.html">Admin</a><a class="back-top" href="#top" aria-label="Back to top">↑</a></footer>
 
+  <script src="supabase-config.js"></script>
+  <script type="module" src="community.js"></script>
   <script>
     (() => {
       const slides = Array.from(document.querySelectorAll('.featured-slide'));
