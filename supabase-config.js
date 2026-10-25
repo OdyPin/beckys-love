@@ -1,6 +1,6 @@
-// Fill these with the public Project URL and anon/publishable key from the
-// separate Becky’s Love Supabase project. Never put a service-role key here.
+// Becky’s Love public Supabase client configuration.
+// The publishable key is safe in browser code because table and Storage RLS are enabled.
 window.BECKYS_LOVE_SUPABASE = {
-  url: 'https://YOUR-PROJECT-REF.supabase.co',
-  anonKey: 'YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY'
+  url: 'https://zuriaoyubxkswzxyggve.supabase.co',
+  anonKey: 'sb_publishable_iiiZeMlQ3nQXB-O1Chj70Q_rHRwXAN1'
 };
