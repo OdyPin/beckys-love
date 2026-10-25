@@ -19,14 +19,14 @@ In the repository settings, open **Pages** and select **Deploy from a branch**, 
 
 ## Fan messages and moderation
 
-The Fan Messages section accepts a name, message, and optional JPEG, PNG, or WebP image. Submissions are stored as `pending`; only approved messages are returned to the public feed. Uploaded photos are held in a private Supabase Storage bucket and can only be signed for display after their message is approved. Supabase Row Level Security enforces these rules.
+The Fan Messages section accepts a name, message, and optional JPEG, PNG or WebP image. Every submission starts as `pending`; the public feed only reads approved messages. Photos stay in the private `fan-submissions` Storage bucket, and are only displayed through signed URLs after approval. Database and Storage Row Level Security enforce those rules.
 
-### Supabase setup
+### Backend status
 
-1. Create a separate Supabase project for Becky’s Love.
-2. Apply `supabase/migrations/fan_message_moderation.sql`.
-3. Copy the project URL and its publishable (or legacy anon) key into `supabase-config.js`. Never put a service-role key in this static site.
-4. In Supabase Authentication, create an admin account for yourself. In the SQL editor, run the promotion statement at the bottom of the migration with your admin email in place of `YOUR_ADMIN_EMAIL`.
-5. Open `admin.html` on the deployed HTTPS site and sign in. Fan submissions will appear in the private review queue.
+The separate Supabase organization and project for Becky’s Love are set up. The project reference is `zuriaoyubxkswzxyggve`. The moderation schema and private photo bucket have been applied, and `supabase-config.js` contains the project URL and publishable key. No service-role key is stored in this site.
 
-The `admin.html` page only accepts Supabase users with `fan_admin: true` in their protected `app_metadata`. Do not grant this role to fan accounts.
+### Finish admin access
+
+Supabase Auth users are separate from Supabase Dashboard accounts. Create an Auth user for the admin email in the Becky’s Love project under **Authentication → Users**. Then use the SQL editor to run the admin promotion statement at the bottom of `supabase/migrations/fan_message_moderation.sql`, replacing `YOUR_ADMIN_EMAIL` with that account’s email. Open `admin.html` on the deployed HTTPS site and sign in to review pending notes.
+
+The admin page only accepts users with `fan_admin: true` in protected `app_metadata`. Do not assign that role to fan accounts.
