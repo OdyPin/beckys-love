@@ -142,7 +142,7 @@ if (configured) {
     message.textContent = 'Sending a secure reset link…';
     const { error } = await supabase.auth.resetPasswordForEmail(
       document.querySelector('#recovery-email').value.trim(),
-      { redirectTo: `${window.location.origin}${window.location.pathname}?reset=1` }
+      { redirectTo: `${window.location.origin}${window.location.pathname}` }
     );
     button.disabled = false;
     message.textContent = error
@@ -181,14 +181,16 @@ if (configured) {
     showSignedOut('You are signed out.');
   });
 
-  const recoveryLink = new URLSearchParams(window.location.hash.slice(1)).get('type') === 'recovery';
+  const authCallback = new URLSearchParams(window.location.hash.slice(1));
+  const recoveryLink = authCallback.get('type') === 'recovery';
+  const recoveryError = authCallback.has('error');
   supabase.auth.onAuthStateChange((event) => {
     if (event === 'PASSWORD_RECOVERY') showPasswordReset();
   });
 
   supabase.auth.getSession().then(async ({ data }) => {
     if (recoveryLink && data.session) showPasswordReset();
-    else if (recoveryLink) showSignedOut('This reset link is invalid or has expired. Request a new one to continue.');
+    else if (recoveryLink || recoveryError) showSignedOut('This reset link is invalid or has expired. Request a new one to continue.');
     else if (data.session && await requireAdmin(data.session.user)) await loadQueue();
   });
 }
