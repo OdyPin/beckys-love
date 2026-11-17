@@ -3,8 +3,12 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const config = window.BECKYS_LOVE_SUPABASE || {};
 const configured = config.url?.startsWith('https://') && !config.url.includes('YOUR-PROJECT-REF') && config.anonKey && !config.anonKey.startsWith('YOUR_');
 const loginView = document.querySelector('#admin-login-view');
+const recoveryRequestView = document.querySelector('#admin-recovery-request-view');
+const passwordResetView = document.querySelector('#admin-password-reset-view');
 const queueView = document.querySelector('#admin-queue-view');
 const loginForm = document.querySelector('#admin-login-form');
+const recoveryRequestForm = document.querySelector('#admin-recovery-request-form');
+const passwordResetForm = document.querySelector('#admin-password-reset-form');
 const queue = document.querySelector('#admin-queue');
 const authStatus = document.querySelector('#admin-auth-status');
 const status = document.querySelector('#admin-status');
@@ -15,8 +19,26 @@ if (configured) {
 
   function showSignedOut(message = '') {
     loginView.hidden = false;
+    recoveryRequestView.hidden = true;
+    passwordResetView.hidden = true;
     queueView.hidden = true;
     authStatus.textContent = message;
+  }
+
+  function showRecoveryRequest() {
+    loginView.hidden = true;
+    recoveryRequestView.hidden = false;
+    passwordResetView.hidden = true;
+    queueView.hidden = true;
+    authStatus.textContent = '';
+  }
+
+  function showPasswordReset() {
+    loginView.hidden = true;
+    recoveryRequestView.hidden = true;
+    passwordResetView.hidden = false;
+    queueView.hidden = true;
+    authStatus.textContent = '';
   }
 
   async function requireAdmin(user) {
@@ -103,12 +125,70 @@ if (configured) {
     if (await requireAdmin(data.user)) await loadQueue();
   });
 
+  document.querySelector('#show-password-recovery').addEventListener('click', () => {
+    const loginEmail = document.querySelector('#admin-email').value.trim();
+    document.querySelector('#recovery-email').value = loginEmail;
+    document.querySelector('#recovery-request-status').textContent = '';
+    showRecoveryRequest();
+  });
+
+  document.querySelector('#back-to-admin-login').addEventListener('click', () => showSignedOut());
+
+  recoveryRequestForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const button = recoveryRequestForm.querySelector('button[type="submit"]');
+    const message = document.querySelector('#recovery-request-status');
+    button.disabled = true;
+    message.textContent = 'Sending a secure reset link…';
+    const { error } = await supabase.auth.resetPasswordForEmail(
+      document.querySelector('#recovery-email').value.trim(),
+      { redirectTo: `${window.location.origin}${window.location.pathname}?reset=1` }
+    );
+    button.disabled = false;
+    message.textContent = error
+      ? (error.message.toLowerCase().includes('rate limit')
+          ? 'Too many reset emails were requested recently. Wait a while before trying again.'
+          : `We couldn’t send the reset link. ${error.message}`)
+      : 'If that email belongs to an admin account, a reset link will arrive shortly. Check your inbox and spam folder.';
+  });
+
+  passwordResetForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const message = document.querySelector('#password-reset-status');
+    const password = document.querySelector('#new-admin-password').value;
+    const confirmation = document.querySelector('#confirm-admin-password').value;
+    if (password !== confirmation) {
+      message.textContent = 'Those passwords don’t match. Please try again.';
+      return;
+    }
+    const button = passwordResetForm.querySelector('button[type="submit"]');
+    button.disabled = true;
+    message.textContent = 'Saving your new password…';
+    const { error } = await supabase.auth.updateUser({ password });
+    button.disabled = false;
+    if (error) {
+      message.textContent = `We couldn’t update the password. The reset link may have expired. ${error.message}`;
+      return;
+    }
+    passwordResetForm.reset();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (await requireAdmin(user)) await loadQueue();
+    else message.textContent = 'Your password was updated. Return to sign in with the new password.';
+  });
+
   document.querySelector('#admin-sign-out').addEventListener('click', async () => {
     await supabase.auth.signOut();
     showSignedOut('You are signed out.');
   });
 
+  const recoveryLink = new URLSearchParams(window.location.hash.slice(1)).get('type') === 'recovery';
+  supabase.auth.onAuthStateChange((event) => {
+    if (event === 'PASSWORD_RECOVERY') showPasswordReset();
+  });
+
   supabase.auth.getSession().then(async ({ data }) => {
-    if (data.session && await requireAdmin(data.session.user)) await loadQueue();
+    if (recoveryLink && data.session) showPasswordReset();
+    else if (recoveryLink) showSignedOut('This reset link is invalid or has expired. Request a new one to continue.');
+    else if (data.session && await requireAdmin(data.session.user)) await loadQueue();
   });
 }

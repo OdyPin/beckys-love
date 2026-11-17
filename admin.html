@@ -30,6 +30,27 @@
           <label for="admin-password">Password</label><input id="admin-password" type="password" autocomplete="current-password" required>
           <button class="submit-message" type="submit">Sign in <span>↗</span></button>
         </form>
+        <button id="show-password-recovery" class="text-button" type="button">Forgot password?</button>
+      </div>
+      <div id="admin-recovery-request-view" hidden>
+        <h2>Reset your password</h2>
+        <p class="message-caption">We’ll email a secure link to the admin account so you can choose a new password.</p>
+        <form id="admin-recovery-request-form" class="admin-login-form">
+          <label for="recovery-email">Admin email</label><input id="recovery-email" type="email" autocomplete="email" required>
+          <button class="submit-message" type="submit">Send reset link <span>↗</span></button>
+        </form>
+        <button id="back-to-admin-login" class="text-button" type="button">Back to sign in</button>
+        <p id="recovery-request-status" class="form-status" role="status" aria-live="polite"></p>
+      </div>
+      <div id="admin-password-reset-view" hidden>
+        <h2>Choose a new password</h2>
+        <p class="message-caption">Use at least 8 characters, then confirm your new password.</p>
+        <form id="admin-password-reset-form" class="admin-login-form">
+          <label for="new-admin-password">New password</label><input id="new-admin-password" type="password" autocomplete="new-password" minlength="8" required>
+          <label for="confirm-admin-password">Confirm new password</label><input id="confirm-admin-password" type="password" autocomplete="new-password" minlength="8" required>
+          <button class="submit-message" type="submit">Save new password <span>↗</span></button>
+        </form>
+        <p id="password-reset-status" class="form-status" role="status" aria-live="polite"></p>
       </div>
       <div id="admin-queue-view" hidden>
         <div class="admin-queue-heading"><div><h2 id="admin-panel-title">Pending submissions</h2><p class="message-caption">Review notes and pictures before they are shared publicly.</p></div><button id="admin-sign-out" class="quiet-button" type="button">Sign out</button></div>

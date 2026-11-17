@@ -240,6 +240,9 @@ footer{background:#e6d4b5;border-top:1px solid #c7ad84}
 .admin-panel{background:#eee6db;padding:clamp(24px,5vw,46px)}
 .admin-login-form{display:grid;gap:10px;max-width:420px;margin-top:24px}
 .admin-login-form button{margin-top:8px}
+.text-button{display:inline-block;margin-top:14px;padding:4px 0;border:0;background:transparent;color:#765f45;font:500 11px var(--sans);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.text-button:hover{color:#9c5e42}
+.admin-panel [hidden]{display:none!important}
 .admin-queue-heading{align-items:flex-start;text-transform:none;letter-spacing:0}
 .admin-queue-heading h2{font-size:28px}
 .admin-queue-heading .message-caption{margin:5px 0 0}
