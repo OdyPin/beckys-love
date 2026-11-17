@@ -7,7 +7,7 @@ const status = document.querySelector('#fan-form-status');
 const feed = document.querySelector('#approved-messages');
 
 if (!configured) {
-  status.textContent = 'The community guestbook is being connected. Please check back soon.';
+  window.setSiteStatus('connecting');
 } else {
   const supabase = createClient(config.url, config.anonKey);
   const MAX_PHOTO_BYTES = 5 * 1024 * 1024;
@@ -18,11 +18,11 @@ if (!configured) {
       .select('id, name, message, photo_path, created_at')
       .eq('status', 'approved').order('created_at', { ascending: false }).limit(30);
     if (error) {
-      feed.innerHTML = '<p class="message-caption">The community notes are taking a little rest. Please try again later.</p>';
+      feed.innerHTML = `<p class="message-caption">${window.siteT('error')}</p>`;
       return;
     }
     if (!data.length) {
-      feed.innerHTML = '<p class="message-empty">A little garden<br>of kind words.</p><p class="message-caption">Approved fan messages will bloom here.</p>';
+      feed.innerHTML = `<p class="message-empty">${window.siteT('empty')}</p><p class="message-caption">${window.siteT('waiting')}</p>`;
       return;
     }
     feed.replaceChildren();
@@ -55,12 +55,12 @@ if (!configured) {
     if (values.get('website')) return;
     const file = values.get('photo');
     if (file?.size) {
-      if (!allowedTypes.has(file.type)) { status.textContent = 'Please choose a JPEG, PNG or WebP picture.'; return; }
-      if (file.size > MAX_PHOTO_BYTES) { status.textContent = 'Please choose a picture smaller than 5 MB.'; return; }
+      if (!allowedTypes.has(file.type)) { window.setSiteStatus('badType'); return; }
+      if (file.size > MAX_PHOTO_BYTES) { window.setSiteStatus('tooLarge'); return; }
     }
     const button = form.querySelector('button[type="submit"]');
     button.disabled = true;
-    status.textContent = 'Sending your note for review…';
+    window.setSiteStatus('sending');
     let photoPath = null;
     try {
       if (file?.size) {
@@ -77,13 +77,15 @@ if (!configured) {
       });
       if (error) throw error;
       form.reset();
-      status.textContent = 'Thank you! Your note is waiting for admin review and will stay private unless approved.';
+      window.setSiteStatus('success');
     } catch (error) {
-      status.textContent = error.message || 'We couldn’t send that note. Please try again.';
+      if (error.message) status.textContent = error.message;
+      else window.setSiteStatus('failed');
     } finally {
       button.disabled = false;
     }
   });
 
   loadApprovedMessages();
+  window.addEventListener('beckys-language-change', loadApprovedMessages);
 }

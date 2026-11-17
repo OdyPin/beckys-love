@@ -1,4 +1,4 @@
--- Becky’s Love: private fan submissions with admin-only moderation.
+-- Runaway with Becky: private fan submissions with admin-only moderation.
 create table if not exists public.fan_messages (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(btrim(name)) between 1 and 50),
