@@ -394,3 +394,35 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
 .message-form{width:min(100%,680px);justify-self:center}
 .community-posts-wrap{width:100%}
 @media(max-width:800px){.community-grid{grid-template-columns:1fr;max-width:590px}.message-form{width:100%}}
+
+/* Give the approved notes room on desktop and keep their two-up layout on phones. */
+@media(min-width:801px){
+  body{max-width:1240px}
+  .messages.section{padding-left:clamp(24px,4vw,54px);padding-right:clamp(24px,4vw,54px)}
+  .community-grid{max-width:1500px;width:100%;}
+  .community-posts-wrap{padding-left:clamp(20px,2.5vw,34px);padding-right:clamp(20px,2.5vw,34px)}
+  .community-posts{gap:18px;padding-left:16px;padding-right:16px}
+  .community-post{padding:clamp(14px,1.7vw,22px)}
+}
+@media(max-width:800px){
+  .community-grid{width:100%;max-width:none;gap:18px}
+  .community-posts-wrap{width:100%;padding:40px 12px 12px}
+  .community-posts{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:12px 4px 6px}
+  .community-post{min-width:0;padding:9px}
+  .community-post p:first-of-type,.community-translated-text{font-size:13px!important;line-height:1.42!important;overflow-wrap:anywhere}
+  .community-post-image-button img{height:clamp(100px,27vw,170px)}
+}
+@media(max-width:520px){
+  .community-posts-wrap{padding:38px 7px 8px}
+  .community-posts{gap:7px;padding:10px 2px 4px}
+  .community-post{padding:7px}
+  .community-post p:first-of-type,.community-translated-text{font-size:11.5px!important;line-height:1.38!important}
+  .community-post-image-button{border-width:3px;margin-bottom:8px}
+  .community-post-image-button img{height:clamp(88px,29vw,132px)}
+  .community-translation{padding:7px 6px}
+  .community-translation-label{font-size:8px}
+  .community-language-options{gap:3px}
+  .community-language-button{padding:5px 2px;font-size:9px}
+  .community-post .community-post-author{margin-top:8px;font-size:8px;overflow-wrap:anywhere}
+  .community-post-date{font-size:8px}
+}
