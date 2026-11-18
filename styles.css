@@ -369,3 +369,22 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
   .hero-photo-tape{left:24%;top:-7px;width:58px;height:16px}
   .admin-message-list{margin-top:22px}.admin-actions{flex-wrap:wrap}.community-translation{padding:11px 9px}.community-language-options{width:100%}.community-language-button{flex:1;padding:7px 5px}
 }
+
+/* Community scrapbook cards: give each post room and keep its note controls tidy. */
+.community-grid{grid-template-columns:minmax(260px,.78fr) minmax(0,1.22fr);max-width:1200px}
+.community-post{display:flex;flex-direction:column;min-width:0;padding:14px;border:1px solid #e0d0b4;border-radius:10px;background:#fffaf0;box-shadow:0 5px 14px #61451d12}
+.community-post-image-button{overflow:hidden;border:5px solid #fffdf7;border-radius:6px;background:#f1e6d2;box-shadow:0 2px 8px #61451d18}
+.community-post-image-button img{width:100%;height:clamp(130px,18vw,210px);max-height:210px;object-fit:contain;background:#f1e6d2;margin:0}
+.community-post-image-button:hover img{transform:scale(1.025)}
+.community-post-image-button img{transition:transform .25s ease}
+.community-translation{min-width:0;margin-top:0;padding:12px 13px;border:1px solid #e4d3b3;border-radius:7px;background:linear-gradient(180deg,#fbf4e5,#f7edd9)}
+.community-translation-heading{align-items:center;justify-content:flex-start;gap:7px 10px}
+.community-translation-label{font-size:10px;letter-spacing:.07em}
+.community-language-options{gap:5px}
+.community-language-button{padding:5px 7px;font-size:11px}
+.community-translated-text{font-size:16px!important;line-height:1.5!important;overflow-wrap:anywhere}
+.community-post .community-post-author{margin:12px 0 0;font-size:10px}
+.community-post-date{margin-top:4px}
+@media(max-width:800px){.community-grid{grid-template-columns:1fr;max-width:590px}}
+@media(max-width:520px){.community-post{padding:9px;border-radius:8px}.community-post-image-button{border-width:4px;margin-bottom:10px}.community-post-image-button img{height:clamp(105px,31vw,150px)}.community-translation{padding:9px}.community-translation-heading{gap:6px}.community-language-options{width:100%;gap:4px}.community-language-button{flex:1;min-width:0;padding:5px 4px;font-size:10px}.community-translated-text{font-size:15px!important;line-height:1.45!important}}
+@media(prefers-reduced-motion:reduce){.community-post-image-button img{transition:none}}
