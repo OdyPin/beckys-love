@@ -130,16 +130,6 @@ if (!configured) {
     for (const item of data) {
       const card = document.createElement('article');
       card.className = 'community-post';
-      const expandButton = document.createElement('button');
-      expandButton.type = 'button';
-      expandButton.className = 'community-post-toggle';
-      expandButton.textContent = window.siteT('showMore');
-      expandButton.setAttribute('aria-expanded', 'false');
-      expandButton.addEventListener('click', () => {
-        const expanded = card.classList.toggle('is-expanded');
-        expandButton.setAttribute('aria-expanded', String(expanded));
-        expandButton.textContent = window.siteT(expanded ? 'showLess' : 'showMore');
-      });
       const author = document.createElement('p');
       author.className = 'community-post-author';
       author.textContent = `— ${item.name}`;
@@ -147,7 +137,7 @@ if (!configured) {
       date.className = 'community-post-date';
       date.dateTime = item.created_at;
       date.textContent = new Date(item.created_at).toLocaleDateString(document.documentElement.lang);
-      card.append(makeTranslationControls(item), expandButton, author, date);
+      card.append(makeTranslationControls(item), author, date);
       if (item.photo_path) {
         const { data: signed, error: photoError } = await supabase.storage.from('fan-submissions').createSignedUrl(item.photo_path, 3600);
         if (!photoError && signed?.signedUrl) {
