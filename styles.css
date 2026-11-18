@@ -347,6 +347,10 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
 .community-language-button:disabled{opacity:.55;cursor:wait}
 .community-translated-text{margin:10px 0 0!important;font:400 15px/1.55 var(--serif)!important;white-space:pre-wrap;overflow-wrap:anywhere}
 .community-post-date{display:block;margin-top:7px;color:#88745c;font-size:9px}
+.community-post:not(.is-expanded) .community-translated-text{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.community-post-toggle{margin-top:11px;padding:7px 12px;border:1px solid #c5ae87;border-radius:2px;background:#fffaf0;color:#765439;font:500 13px/1.35 var(--sans);cursor:pointer}
+.community-post-toggle:hover{background:#f1e3c9;color:#4e3421}
+.community-post-toggle:focus-visible{outline:2px solid #9b674e;outline-offset:2px}
 .admin-message-list{margin-top:28px;padding-top:18px;border-top:1px solid #b99b704c}
 .admin-message-list>h3{margin:0;color:#765439;font:500 19px var(--serif)}
 .admin-message-list>.form-status{margin:5px 0}
