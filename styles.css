@@ -348,6 +348,15 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
 .community-translated-text{margin:10px 0 0!important;font:400 15px/1.55 var(--serif)!important;white-space:pre-wrap;overflow-wrap:anywhere}
 .community-post-date{display:block;margin-top:7px;color:#88745c;font-size:9px}
 .community-post{min-width:0;padding:clamp(10px,1.5vw,18px)}
+.community-post-image-button{display:block;width:100%;padding:0;margin:0 0 14px;border:0;background:transparent;cursor:zoom-in}
+.community-post-image-button img{display:block;width:100%;max-height:360px;object-fit:contain;background:#eee6db;margin:0}
+.community-post-image-button:focus-visible{outline:3px solid #9b674e;outline-offset:3px}
+.community-photo-dialog{position:fixed;inset:0;width:min(92vw,1000px);max-width:none;max-height:90vh;margin:auto;padding:48px 18px 18px;border:1px solid #d3bd98;border-radius:8px;background:#fbf5e9;box-shadow:0 24px 80px #1e1810aa;overflow:visible}
+.community-photo-dialog::backdrop{background:#201a14c9;backdrop-filter:blur(3px)}
+.community-photo-dialog>img{display:block;width:100%;height:min(78vh,820px);object-fit:contain;background:#f1e6d2}
+.community-photo-dialog-close{position:absolute;top:9px;right:10px;width:34px;height:34px;display:grid;place-items:center;border:1px solid #bea783;border-radius:50%;background:#fffaf0;color:#4e3421;font:26px/1 var(--sans);cursor:pointer}
+.community-photo-dialog-close:hover{background:#b96f50;color:#fff8ee}
+@media(max-width:520px){.community-photo-dialog{width:94vw;padding:48px 10px 10px}.community-photo-dialog>img{height:78vh}}
 .admin-message-list{margin-top:28px;padding-top:18px;border-top:1px solid #b99b704c}
 .admin-message-list>h3{margin:0;color:#765439;font:500 19px var(--serif)}
 .admin-message-list>.form-status{margin:5px 0}

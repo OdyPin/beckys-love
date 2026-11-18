@@ -10,6 +10,28 @@ const languageNames = { en: 'English', es: 'Español', th: 'ไทย' };
 const translationContactEmail = 'odypin1985@gmail.com';
 const translationCache = new Map();
 
+// One reusable, native dialog keeps approved photos easy to inspect on desktop
+// and mobile, without changing the two-column community card layout.
+const photoDialog = document.createElement('dialog');
+photoDialog.className = 'community-photo-dialog';
+photoDialog.setAttribute('aria-label', 'Expanded community picture');
+const photoDialogClose = document.createElement('button');
+photoDialogClose.type = 'button';
+photoDialogClose.className = 'community-photo-dialog-close';
+photoDialogClose.setAttribute('aria-label', 'Close expanded picture');
+photoDialogClose.textContent = '×';
+const photoDialogImage = document.createElement('img');
+photoDialogImage.alt = '';
+photoDialog.append(photoDialogClose, photoDialogImage);
+document.body.append(photoDialog);
+photoDialogClose.addEventListener('click', () => photoDialog.close());
+photoDialog.addEventListener('click', (event) => {
+  if (event.target === photoDialog) photoDialog.close();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && photoDialog.open) photoDialog.close();
+});
+
 if (!configured) {
   window.setSiteStatus('connecting');
 } else {
@@ -141,11 +163,21 @@ if (!configured) {
       if (item.photo_path) {
         const { data: signed, error: photoError } = await supabase.storage.from('fan-submissions').createSignedUrl(item.photo_path, 3600);
         if (!photoError && signed?.signedUrl) {
+          const imageButton = document.createElement('button');
+          imageButton.type = 'button';
+          imageButton.className = 'community-post-image-button';
+          imageButton.setAttribute('aria-label', `Expand picture shared by ${item.name}`);
           const image = document.createElement('img');
           image.src = signed.signedUrl;
           image.alt = `Picture shared by ${item.name}`;
           image.loading = 'lazy';
-          card.prepend(image);
+          imageButton.append(image);
+          imageButton.addEventListener('click', () => {
+            photoDialogImage.src = image.src;
+            photoDialogImage.alt = image.alt;
+            photoDialog.showModal();
+          });
+          card.prepend(imageButton);
         }
       }
       feed.append(card);
