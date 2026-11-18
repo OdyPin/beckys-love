@@ -317,7 +317,7 @@ body{background:#f3ead9;color:var(--ink);background-image:radial-gradient(ellips
 .message-form label{color:#6e4c31}.message-form input:not([type=checkbox]),.message-form textarea{background:#fffcf4;border-color:#cbb793;color:#49321f}
 .consent{color:#735f46!important}.submit-message{background:#b96f50;color:#fff8ee}.submit-message:hover{background:#9c5e42}
 .form-status,.message-caption{color:#765f45}.community-posts-heading{color:#755439;border-color:#b99b70}
-.community-posts{padding:22px 12px 12px;background:repeating-linear-gradient(to bottom,#f8f0df 0 38px,#b3946840 39px,#f8f0df 40px);border:1px solid #d3bd98;min-height:230px}
+.community-posts{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;padding:22px 12px 12px;background:repeating-linear-gradient(to bottom,#f8f0df 0 38px,#b3946840 39px,#f8f0df 40px);border:1px solid #d3bd98;min-height:230px}
 .community-post{background:#fffaf0d9;border-color:#e2d4bc}
 .message-empty{color:#7d5c3f}.community-post .community-post-author{color:#aa684a}
 .links-section{position:relative;background:#e5d4b8;color:#4d3522}.links-section .section-kicker{color:#8a7151}.links-section .section-kicker span{color:#b86e4f}.links-section h2,.links-section h2 em{color:#4d3522}.links-section .body-copy{color:#765e44}
@@ -349,6 +349,8 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
 .community-post-date{display:block;margin-top:7px;color:#88745c;font-size:9px}
 .community-post:not(.is-expanded) .community-translated-text{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
 .community-post-toggle{margin-top:11px;padding:7px 12px;border:1px solid #c5ae87;border-radius:2px;background:#fffaf0;color:#765439;font:500 13px/1.35 var(--sans);cursor:pointer}
+.community-post{min-width:0;padding:clamp(10px,1.5vw,18px)}
+.community-post-toggle{width:100%;padding-inline:6px}
 .community-post-toggle:hover{background:#f1e3c9;color:#4e3421}
 .community-post-toggle:focus-visible{outline:2px solid #9b674e;outline-offset:2px}
 .admin-message-list{margin-top:28px;padding-top:18px;border-top:1px solid #b99b704c}
