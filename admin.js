@@ -12,6 +12,8 @@ const passwordResetForm = document.querySelector('#admin-password-reset-form');
 const queue = document.querySelector('#admin-queue');
 const authStatus = document.querySelector('#admin-auth-status');
 const status = document.querySelector('#admin-status');
+const approvedQueue = document.querySelector('#admin-approved-list');
+const approvedStatus = document.querySelector('#admin-approved-status');
 
 if (configured) {
   const supabase = createClient(config.url, config.anonKey);
@@ -55,13 +57,20 @@ if (configured) {
 
   async function loadQueue() {
     status.textContent = 'Loading pending notes…';
+    approvedStatus.textContent = 'Loading approved notes…';
     queue.replaceChildren();
-    const { data, error } = await supabase.from('fan_messages')
-      .select('id, name, message, photo_path, created_at')
-      .eq('status', 'pending').order('created_at', { ascending: true });
-    if (error) { status.textContent = error.message; return; }
-    status.textContent = data.length ? `${data.length} note${data.length === 1 ? '' : 's'} waiting for review.` : 'No notes are waiting for review.';
-    for (const item of data) {
+    approvedQueue.replaceChildren();
+    const [pendingResult, approvedResult] = await Promise.all([
+      supabase.from('fan_messages').select('id, name, message, photo_path, created_at').eq('status', 'pending').order('created_at', { ascending: true }),
+      supabase.from('fan_messages').select('id, name, message, photo_path, created_at').eq('status', 'approved').order('created_at', { ascending: false }).limit(100)
+    ]);
+    if (pendingResult.error) status.textContent = pendingResult.error.message;
+    else status.textContent = pendingResult.data.length ? `${pendingResult.data.length} note${pendingResult.data.length === 1 ? '' : 's'} waiting for review.` : 'No notes are waiting for review.';
+    if (approvedResult.error) approvedStatus.textContent = approvedResult.error.message;
+    else approvedStatus.textContent = approvedResult.data.length ? `${approvedResult.data.length} approved message${approvedResult.data.length === 1 ? '' : 's'}.` : 'No messages have been approved yet.';
+    if (pendingResult.error && approvedResult.error) return;
+
+    async function addCard(item, target, approved = false) {
       const card = document.createElement('article');
       card.className = 'admin-submission';
       const heading = document.createElement('h3');
@@ -83,17 +92,47 @@ if (configured) {
       }
       const actions = document.createElement('div');
       actions.className = 'admin-actions';
-      for (const [label, nextStatus, className] of [['Approve', 'approved', 'approve-button'], ['Decline', 'rejected', 'quiet-button']]) {
+      if (approved) {
         const button = document.createElement('button');
         button.type = 'button';
-        button.className = className;
-        button.textContent = label;
-        button.addEventListener('click', () => moderate(item.id, nextStatus, button));
+        button.className = 'delete-message-button';
+        button.textContent = 'Remove approved message';
+        button.addEventListener('click', () => removeApproved(item, button));
         actions.append(button);
+      } else {
+        for (const [label, nextStatus, className] of [['Approve', 'approved', 'approve-button'], ['Decline', 'rejected', 'quiet-button']]) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = className;
+          button.textContent = label;
+          button.addEventListener('click', () => moderate(item.id, nextStatus, button));
+          actions.append(button);
+        }
       }
       card.append(actions);
-      queue.append(card);
+      target.append(card);
     }
+    for (const item of pendingResult.data || []) await addCard(item, queue);
+    for (const item of approvedResult.data || []) await addCard(item, approvedQueue, true);
+  }
+
+  async function removeApproved(item, button) {
+    if (!window.confirm(`Remove the approved message from ${item.name}? This permanently deletes the message from the community.`)) return;
+    button.disabled = true;
+    approvedStatus.textContent = 'Removing approved message…';
+    const { error } = await supabase.from('fan_messages').delete().eq('id', item.id).eq('status', 'approved');
+    if (error) {
+      button.disabled = false;
+      approvedStatus.textContent = `Could not remove the message. ${error.message}`;
+      return;
+    }
+    let photoCleanupFailed = false;
+    if (item.photo_path) {
+      const { error: photoError } = await supabase.storage.from('fan-submissions').remove([item.photo_path]);
+      photoCleanupFailed = Boolean(photoError);
+    }
+    await loadQueue();
+    if (photoCleanupFailed) approvedStatus.textContent = 'The message was removed. Its private photo file could not be cleaned up.';
   }
 
   async function moderate(id, nextStatus, button) {

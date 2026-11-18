@@ -53,9 +53,17 @@
         <p id="password-reset-status" class="form-status" role="status" aria-live="polite"></p>
       </div>
       <div id="admin-queue-view" hidden>
-        <div class="admin-queue-heading"><div><h2 id="admin-panel-title">Pending submissions</h2><p class="message-caption">Review notes and pictures before they are shared publicly.</p></div><button id="admin-sign-out" class="quiet-button" type="button">Sign out</button></div>
-        <p id="admin-status" class="form-status" role="status" aria-live="polite"></p>
-        <div id="admin-queue" class="admin-queue"></div>
+        <div class="admin-queue-heading"><div><h2 id="admin-panel-title">Message moderation</h2><p class="message-caption">Review new notes and manage messages already shared publicly.</p></div><button id="admin-sign-out" class="quiet-button" type="button">Sign out</button></div>
+        <section class="admin-message-list" aria-labelledby="pending-title">
+          <h3 id="pending-title">Pending submissions</h3>
+          <p id="admin-status" class="form-status" role="status" aria-live="polite"></p>
+          <div id="admin-queue" class="admin-queue"></div>
+        </section>
+        <section class="admin-message-list" aria-labelledby="approved-title">
+          <h3 id="approved-title">Approved messages</h3>
+          <p id="admin-approved-status" class="form-status" role="status" aria-live="polite"></p>
+          <div id="admin-approved-list" class="admin-queue"></div>
+        </section>
       </div>
       <p id="admin-auth-status" class="form-status" role="status" aria-live="polite">Admin access requires a connected Supabase project and an authorized account.</p>
     </section>

@@ -87,6 +87,10 @@
           <input id="fan-name" name="name" maxlength="50" autocomplete="nickname" required placeholder="Your Name">
           <label for="fan-message">Your message</label>
           <textarea id="fan-message" name="message" maxlength="700" rows="5" required placeholder="Share a kind thought…"></textarea>
+          <label for="fan-message-language">Message language</label>
+          <select id="fan-message-language" name="message_language" required>
+            <option value="en">English</option><option value="es">Español</option><option value="th">ไทย</option>
+          </select>
           <label for="fan-photo">Add a picture <span>(optional · JPEG, PNG or WebP · up to 5 MB)</span></label>
           <input id="fan-photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp">
           <label class="consent"><input type="checkbox" name="consent" required><span>I understand my submission stays private unless an admin approves it for the community page.</span></label>

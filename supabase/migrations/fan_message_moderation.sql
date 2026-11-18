@@ -3,6 +3,7 @@ create table if not exists public.fan_messages (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(btrim(name)) between 1 and 50),
   message text not null check (char_length(btrim(message)) between 1 and 700),
+  message_language text not null default 'en' check (message_language in ('en', 'es', 'th')),
   photo_path text,
   status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at timestamptz not null default now(),
@@ -12,6 +13,13 @@ create table if not exists public.fan_messages (
     photo_path is null or photo_path ~ '^[0-9a-f-]{36}/picture\.(jpg|png|webp)$'
   )
 );
+
+alter table public.fan_messages
+  add column if not exists message_language text not null default 'en';
+alter table public.fan_messages
+  drop constraint if exists fan_messages_message_language_check;
+alter table public.fan_messages
+  add constraint fan_messages_message_language_check check (message_language in ('en', 'es', 'th'));
 
 create index if not exists fan_messages_approved_created_idx
   on public.fan_messages (created_at desc) where status = 'approved';
@@ -32,6 +40,7 @@ revoke all on public.fan_messages from anon, authenticated;
 grant select on public.fan_messages to anon, authenticated;
 grant insert on public.fan_messages to anon;
 grant update (status, reviewed_at, reviewed_by) on public.fan_messages to authenticated;
+grant delete on public.fan_messages to authenticated;
 
 drop policy if exists "Read approved fan messages or admin queue" on public.fan_messages;
 create policy "Read approved fan messages or admin queue"
@@ -52,6 +61,11 @@ create policy "Admins moderate fan messages"
   on public.fan_messages for update to authenticated
   using (public.is_fan_admin())
   with check (public.is_fan_admin());
+
+drop policy if exists "Admins delete approved fan messages" on public.fan_messages;
+create policy "Admins delete approved fan messages"
+  on public.fan_messages for delete to authenticated
+  using (public.is_fan_admin() and status = 'approved');
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('fan-submissions', 'fan-submissions', false, 5242880, array['image/jpeg', 'image/png', 'image/webp'])
