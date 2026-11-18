@@ -395,7 +395,7 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
 .community-posts-wrap{width:100%}
 @media(max-width:800px){.community-grid{grid-template-columns:1fr;max-width:590px}.message-form{width:100%}}
 
-/* Give the approved notes room on desktop and keep their two-up layout on phones. */
+/* Give the approved notes room and display them one per row at every size. */
 @media(min-width:801px){
   body{max-width:1240px}
   .messages.section{padding-left:clamp(24px,4vw,54px);padding-right:clamp(24px,4vw,54px)}
@@ -425,4 +425,18 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
   .community-language-button{padding:5px 2px;font-size:9px}
   .community-post .community-post-author{margin-top:8px;font-size:8px;overflow-wrap:anywhere}
   .community-post-date{font-size:8px}
+}
+
+/* Single-column approved messages read more naturally across screen sizes. */
+.community-posts{grid-template-columns:minmax(0,1fr)}
+@media(max-width:800px){
+  .community-post p:first-of-type,.community-translated-text{font-size:15px!important;line-height:1.5!important}
+  .community-post-image-button img{height:clamp(150px,46vw,260px)}
+}
+@media(max-width:520px){
+  .community-post{padding:12px}
+  .community-post p:first-of-type,.community-translated-text{font-size:14px!important;line-height:1.48!important}
+  .community-post-image-button img{height:clamp(140px,58vw,220px)}
+  .community-language-button{padding:7px 5px;font-size:10px}
+  .community-post .community-post-author{font-size:9px}
 }
