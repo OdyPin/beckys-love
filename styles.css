@@ -388,3 +388,9 @@ footer{background:#e7d7bd;color:#765e43;border-top:1px solid #c7ad84}
 @media(max-width:800px){.community-grid{grid-template-columns:1fr;max-width:590px}}
 @media(max-width:520px){.community-post{padding:9px;border-radius:8px}.community-post-image-button{border-width:4px;margin-bottom:10px}.community-post-image-button img{height:clamp(105px,31vw,150px)}.community-translation{padding:9px}.community-translation-heading{gap:6px}.community-language-options{width:100%;gap:4px}.community-language-button{flex:1;min-width:0;padding:5px 4px;font-size:10px}.community-translated-text{font-size:15px!important;line-height:1.45!important}}
 @media(prefers-reduced-motion:reduce){.community-post-image-button img{transition:none}}
+
+/* Let the approved feed use the full desktop width so paired notes stay readable. */
+.community-grid{grid-template-columns:minmax(0,1fr);max-width:1200px;width:100%}
+.message-form{width:min(100%,680px);justify-self:center}
+.community-posts-wrap{width:100%}
+@media(max-width:800px){.community-grid{grid-template-columns:1fr;max-width:590px}.message-form{width:100%}}
