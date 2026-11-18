@@ -7,6 +7,7 @@ const status = document.querySelector('#fan-form-status');
 const feed = document.querySelector('#approved-messages');
 const supportedLanguages = ['en', 'es', 'th'];
 const languageNames = { en: 'English', es: 'Español', th: 'ไทย' };
+const translationContactEmail = 'odypin1985@gmail.com';
 const translationCache = new Map();
 
 if (!configured) {
@@ -42,6 +43,7 @@ if (!configured) {
       const url = new URL('https://api.mymemory.translated.net/get');
       url.searchParams.set('q', part);
       url.searchParams.set('langpair', `${source}|${target}`);
+      url.searchParams.set('de', translationContactEmail);
       const response = await fetch(url);
       if (!response.ok) throw new Error('translation unavailable');
       const result = await response.json();
